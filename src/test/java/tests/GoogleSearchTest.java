@@ -1,3 +1,5 @@
+package tests;
+
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -8,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.GooglePage;
 
 import java.time.Duration;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 public class GoogleSearchTest {
     private static WebDriver driver;
     private static WebDriverWait wait;
+    private static GooglePage googlePage;
     private static final String KEYWORD = "Java";
 
     @BeforeClass
@@ -22,26 +26,16 @@ public class GoogleSearchTest {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        googlePage = new GooglePage(driver, wait);
     }
 
     @Test
     public void testGoogleSearch() {
-        driver.get("https://www.google.com");
-        WebElement searchBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("q")));
-        searchBox.sendKeys(KEYWORD);
+        googlePage.open();
+        googlePage.search(KEYWORD);
 
-        WebElement searchButton = wait.until(ExpectedConditions.elementToBeClickable(By.name("btnK")));
-        searchButton.click();
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("search")));
-
-        List<WebElement> results = driver.findElements(By.cssSelector("h3"));
+        List<WebElement> results = googlePage.getResults();
         Assert.assertFalse("No results", results.isEmpty());
-
-        /*for (WebElement result : results) {
-            String title = result.getText().toLowerCase();
-            Assert.assertTrue("Doesnt contain keyword", title.contains(KEYWORD.toLowerCase()));
-        }*/
 
         long count = results.stream().filter(r -> r.getText().toLowerCase().contains(KEYWORD.toLowerCase())).count();
 
