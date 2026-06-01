@@ -2,8 +2,8 @@ package org.example.tests;
 
 import org.example.pages.ResultPage;
 import org.example.pages.SearchPage;
-import org.junit.Assert;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import org.example.BaseTest;
 import org.openqa.selenium.WebElement;
 
@@ -22,10 +22,10 @@ public class GoogleSearchTest extends BaseTest {
         resultPage.waitForSearchResults();
 
         List<WebElement> results = resultPage.getResults();
-        Assert.assertFalse("No results", results.isEmpty());
+        Assert.assertFalse(results.isEmpty(), "No results");
 
         long count = results.stream().filter(r -> r.getText().toLowerCase().contains(KEYWORD.toLowerCase())).count();
 
-        Assert.assertTrue("Doesnt contain keyword", count > 0);
+        Assert.assertTrue(count > 0, "Doesnt contain keyword");
     }
 }
