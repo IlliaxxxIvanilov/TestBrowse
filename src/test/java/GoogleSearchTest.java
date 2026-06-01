@@ -1,5 +1,3 @@
-package org.example;
-
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -44,6 +42,7 @@ public class GoogleSearchTest {
             String title = result.getText().toLowerCase();
             Assert.assertTrue("Doesnt contain keyword", title.contains(KEYWORD.toLowerCase()));
         }*/
+
         long count = results.stream().filter(r -> r.getText().toLowerCase().contains(KEYWORD.toLowerCase())).count();
 
         Assert.assertTrue("Doesnt contain keyword", count > 0);
