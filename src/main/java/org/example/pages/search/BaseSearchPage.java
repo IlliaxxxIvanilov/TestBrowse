@@ -1,28 +1,24 @@
-package org.example.pages;
+package org.example.pages.search;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class SearchPage {
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public abstract class BaseSearchPage {
+    protected final WebDriver driver;
+    protected final WebDriverWait wait;
+    protected final By searchBox;
+    protected final By searchButton;
 
-    private final By searchBox;
-    private final By searchButton;
-
-    public SearchPage(WebDriver driver, WebDriverWait wait) {
+    public BaseSearchPage(WebDriver driver, WebDriverWait wait, By searchBox,  By searchButton) {
         this.driver = driver;
         this.wait = wait;
-
-        this.searchBox = By.name("q");
-        this.searchButton = By.name("btnK");
+        this.searchBox = searchBox;
+        this.searchButton = searchButton;
     }
 
-    public void open() {
-        driver.get("https://www.google.com/");
-    }
+    abstract public void open();
 
     public void search(String keyword) {
         this.wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox)).sendKeys(keyword);
