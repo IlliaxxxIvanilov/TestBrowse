@@ -1,4 +1,4 @@
-package pages;
+package org.example.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -8,32 +8,22 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
-public class GooglePage {
+public class ResultPage {
     private final WebDriver driver;
     private final WebDriverWait wait;
 
-    private final By searchBox;
-    private final By searchButton;
     private final By searchResults;
     private final By resultTitles;
 
-    public GooglePage(WebDriver driver, WebDriverWait wait) {
+    public ResultPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
 
-        this.searchBox = By.name("q");
-        this.searchButton = By.name("btnK");
         this.searchResults = By.id("search");
         this.resultTitles = By.cssSelector("h3");
     }
 
-    public void open() {
-        driver.get("https://www.google.com");
-    }
-
-    public void search(String keyword) {
-        this.wait.until(ExpectedConditions.visibilityOfElementLocated(searchBox)).sendKeys(keyword);
-        this.wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
+    public void waitForSearchResults() {
         this.wait.until(ExpectedConditions.visibilityOfElementLocated(searchResults));
     }
 
