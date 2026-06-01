@@ -31,7 +31,7 @@ public class AmazonResultPage extends BaseResultPage {
 
                 String author = "";
                 try {
-                    author = item.findElement(By.cssSelector(".a-size-base .a-link-normal")).getText();
+                    author = item.findElement(By.cssSelector("a.a-size-base")).getText();
                 } catch (Exception e) {}
 
                 String price = "";

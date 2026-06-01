@@ -32,4 +32,8 @@ public class Book {
     public String toString() {
         return "Title: " + this.title + "| Author: " + this.author + "| Price: " + this.price + "| Bestseller: " + (this.isBestseller ? "yes" : "no");
     }
+
+    public boolean isEquals(Book book) {
+        return book.title.equals(this.title) && book.author.equals(this.author) && book.price.equals(this.price) &&  book.isBestseller() == this.isBestseller();
+    }
 }
